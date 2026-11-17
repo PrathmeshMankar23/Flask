@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>Income Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <span class="eyebrow">INCOME ESTIMATOR</span>
+      <h1>Explore an income prediction</h1>
+      <p>Enter the requested profile details to get an estimate from the trained model.</p>
+    </header>
+
+    <section class="card" aria-labelledby="form-title">
+      <div class="card-heading">
+        <div>
+          <h2 id="form-title">Profile details</h2>
+          <p>Complete every field to continue.</p>
+        </div>
+        <span class="step-badge" aria-hidden="true">01</span>
+      </div>
+
+      <form action="{{ url_for('result') }}" method="post">
+        <div class="form-grid">
+          <div class="field">
+            <label for="age">Age</label>
+            <input id="age" name="age" type="number" min="0" max="120" step="1" placeholder="e.g. 35" required>
+          </div>
+          <div class="field">
+            <label for="workclass">Workclass code</label>
+            <input id="workclass" name="workclass" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="education-num">Education level code</label>
+            <input id="education-num" name="education-num" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="marital-status">Marital status code</label>
+            <input id="marital-status" name="marital-status" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="occupation">Occupation code</label>
+            <input id="occupation" name="occupation" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="relationship">Relationship code</label>
+            <input id="relationship" name="relationship" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="race">Race code</label>
+            <input id="race" name="race" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="gender">Gender code</label>
+            <input id="gender" name="gender" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+          <div class="field">
+            <label for="capital-gain">Capital gain</label>
+            <input id="capital-gain" name="capital-gain" type="number" min="0" step="1" placeholder="e.g. 0" required>
+          </div>
+          <div class="field">
+            <label for="capital-loss">Capital loss</label>
+            <input id="capital-loss" name="capital-loss" type="number" min="0" step="1" placeholder="e.g. 0" required>
+          </div>
+          <div class="field">
+            <label for="hours-per-week">Hours worked per week</label>
+            <input id="hours-per-week" name="hours-per-week" type="number" min="0" max="168" step="1" placeholder="e.g. 40" required>
+          </div>
+          <div class="field">
+            <label for="native-country">Native country code</label>
+            <input id="native-country" name="native-country" type="number" min="0" step="1" placeholder="Enter a code" required>
+          </div>
+        </div>
+
+        <p class="form-note">For coded categories, enter the numeric code used by your model's training data.</p>
+        <button type="submit">Predict income <span aria-hidden="true">→</span></button>
+      </form>
+
+      {% if prediction_text %}
+      <div class="result" role="status" aria-live="polite">
+        <span class="result-label">RESULT</span>
+        <p>{{ prediction_text }}</p>
+      </div>
+      {% endif %}
+    </section>
+
+    <footer>Predictions are estimates and should not be used as financial advice.</footer>
+  </main>
+</body>
+</html>
